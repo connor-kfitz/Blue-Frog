@@ -6,16 +6,16 @@ module.exports = {
             .then((thought) => res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
-    // getSingleUser(req, res) {
-    //     User.findOne({ _id: req.params.userId })
-    //         .select('-__v')
-    //         .then((user) =>
-    //             !user
-    //                 ? res.status(404).json({ message: 'No user with that ID' })
-    //                 : res.json(user)
-    //             )
-    //             .catch((err) => res.status(500).json(err));
-    //   },
+    getSingleThought(req, res) {
+        Thought.findOne({ _id: req.params.thoughtId })
+            .select('-__v')
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No thought with that ID' })
+                    : res.json(thought)
+                )
+                .catch((err) => res.status(500).json(err));
+      },
     createThought(req, res) {
         Thought.create(req.body)
             .then((dbThoughtData) => res.json(dbThoughtData))
