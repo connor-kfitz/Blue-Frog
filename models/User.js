@@ -1,6 +1,11 @@
-const mongoose = require('mongoose');
+const { Schema, model} = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+var validateEmail = function(email) {
+    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return re.test(email)
+};
+
+const userSchema = new Schema({
     username: { type: String, 
                 unique: true,  
                 required: true, 
@@ -9,8 +14,18 @@ const userSchema = new mongoose.Schema({
              required: true, 
              unqiue: true, 
              validate: [validateEmail, 'Please enter a valid email address'] },
-    thoughts: [thoughtSchema],
-    friends: [userSchema]
+    thoughts: [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: 'thought',
+                },
+            ],
+    friends: [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: 'user',
+                },
+            ],
     },
     {
         toJson: {
@@ -24,6 +39,6 @@ userSchema.virtual('friendCount').get(function () {
     return this.friends.length;
 });
 
-const User = mongoose.model('User', userSchema);
+const User = model('user', userSchema);
 
 module.exports = User;  
