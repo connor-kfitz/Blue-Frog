@@ -3,7 +3,7 @@ const db = require('./config/connection');
 const routes = require('./routes');
 
 // TODO: Move to appropriate routes
-const { User, Thought, Reaction } = require('./models');
+// const { User, Thought, Reaction } = require('./models');
 
 const PORT = process.env.PORT || 3001;
 const app = express();

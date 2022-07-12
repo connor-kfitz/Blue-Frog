@@ -1,11 +1,9 @@
-// const router = require('express').Router();
+const router = require('express').Router();
+const userRoutes = require('./userRoutes');
+const thoughtRoutes = require('./thoughtRoutes');
 
-// // TODO: Add routes to files in API
-// const appRoutes = require('./');
-// const userRoutes = require('./');
+// TODO: Same as above
+router.use('/users', userRoutes);
+router.use('/thoughts', thoughtRoutes);
 
-// // TODO: Same as above
-// router.use('/', );
-// router.use('/', );
-
-// module.exports = router;
+module.exports = router;

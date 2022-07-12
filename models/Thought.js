@@ -11,9 +11,19 @@ const thoughtSchema = new mongoose.Schema({
                 required: true
             },
     reactions: [reactionSchema]
-});
+    },
+    {
+        toJson: {
+            virtuals: true,
+        },
+        id: false,
+    }
+);
 
 //  Create a virtual called reactionCount that retrives the length of the thought's reactions arrary field on query?
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+});
 
 const Thought = mongoose.model('Thought', thoughtSchema);
 

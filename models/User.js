@@ -11,9 +11,18 @@ const userSchema = new mongoose.Schema({
              validate: [validateEmail, 'Please enter a valid email address'] },
     thoughts: [thoughtSchema],
     friends: [userSchema]
-});
+    },
+    {
+        toJson: {
+            virtuals: true,
+        },
+        id: false,
+    }
+);
 
-//  TODO: Create a virtual called friendCount that retrives the length of the user's friends array field?
+userSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
+});
 
 const User = mongoose.model('User', userSchema);
 
