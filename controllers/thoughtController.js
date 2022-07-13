@@ -1,10 +1,10 @@
-const { User, Thought, Reaction } = require('../models');
+const { User, Thought } = require('../models');
 
+// Exporting all thought routes created below
 module.exports = {
     getThoughts(req, res) {
         Thought.find()
             // .populate('reactions')
-
             .then((thought) => res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
@@ -21,7 +21,6 @@ module.exports = {
       },
 
     createThought(req, res) {
-
         Thought.create(req.body)
             .then((dbThoughtData) => {
 

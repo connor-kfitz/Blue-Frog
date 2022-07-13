@@ -1,7 +1,7 @@
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
+// Exporting all user routes created below
 module.exports = {
-
     getUsers(req, res) {
         User.find()
             .populate('friends')
@@ -20,11 +20,13 @@ module.exports = {
                 )
                 .catch((err) => res.status(500).json(err));
       },
+
     createUser(req, res) {
         User.create(req.body)
             .then((dbUserData) => res.json(dbUserData))
             .catch((err) => res.status(500).json(err));
       },
+
     updateUser(req,res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -41,6 +43,7 @@ module.exports = {
         res.status(500).json(err);
       });
     },
+
     deleteUser(req, res) {
         User.findOneAndRemove({ _id: req.params.userId })
           .then((user) =>
@@ -54,12 +57,12 @@ module.exports = {
           });
       },
       
-      addFriend(req, res) {
-        User.findOneAndUpdate(
-          { _id: req.params.userId},
-          { $push: {friends: req.params.friendId}},
-          {runValidators: true, new: true}
-          )
+    addFriend(req, res) {
+      User.findOneAndUpdate(
+        { _id: req.params.userId},
+        { $push: {friends: req.params.friendId}},
+        {runValidators: true, new: true}
+        )
           .then((user) =>
             !user
             ? res.status(404).json({ message: 'No user with this id!' })
@@ -69,14 +72,11 @@ module.exports = {
       },
 
     deleteFriend(req, res) {
-
       User.findOneAndUpdate(
-
         { _id: req.params.userId },
         { $pull: { friends: req.params.friendId } },
         { runValidators: true, new: true }
       )
-
         .then((user) =>
           !user
             ? res.status(404).json({ message: 'No user with this id!' })
