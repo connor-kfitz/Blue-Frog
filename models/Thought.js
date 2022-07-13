@@ -30,6 +30,10 @@ thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 });
 
+thoughtSchema.virtual('formattedDate').get(function () {
+    return this.createdAt;
+});
+
 const Thought = model('thought', thoughtSchema);
 
 module.exports = Thought
