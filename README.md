@@ -1,4 +1,4 @@
-# NoSql: Social Network API
+# Social Network API
 
 ## Links
 1.  https://drive.google.com/file/d/1unRyoye-h-GPUp39SwzjQye4AJpHSFGl/view
